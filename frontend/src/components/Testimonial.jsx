@@ -112,7 +112,7 @@ export default function Testimonial({ embedUrl, config }) {
             ) : videoError ? (
               <VideoFallback title="Video testimonio" />
             ) : (
-              <div className="video-responsive" style={{ height: '100%', paddingTop: 0, border: 'none' }}>
+              <div className="video-responsive" style={{ flex: 1, minHeight: '450px', paddingTop: 0, border: 'none' }}>
                 <iframe
                   src={embedUrl}
                   title="Mi testimonio"
