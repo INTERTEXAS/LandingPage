@@ -1,8 +1,8 @@
-import React from 'react';
-import { useTheme } from '../ThemeContext';
+import React, { useContext } from 'react';
+import { ThemeContext } from '../ThemeContext';
 
 export default function Footer({ authorName }) {
-  const { theme } = useTheme();
+  const { theme } = useContext(ThemeContext);
   return (
     <footer style={{
       background: 'var(--bg-primary)',
