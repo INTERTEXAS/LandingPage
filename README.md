@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="frontend/public/logo-lines.png" alt="CuadraPro Logo" width="300" />
+  <img src="frontend/public/logo-lines.png" alt="CuadraPro Logo" width="500" style="filter: brightness(0) invert(1);" />
   <h1>CuadraPro (Plenaria) — Micro-SaaS Frontend & Monorepo</h1>
   <p>
     Plataforma inteligente Single Page Application (SPA) para la gestión corporativa, conciliación automatizada, cómputo de quórum ponderado en tiempo real y emisión inmutable de votos.
