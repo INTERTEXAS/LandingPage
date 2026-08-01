@@ -64,7 +64,8 @@ export default function HeroScene() {
       // ESTRICTAMENTE DE FONDO, SIN INTERACCIÓN
       pointerEvents: 'none', 
       zIndex: 0,
-      opacity: isDark ? 0.8 : 0.6
+      opacity: isMobile ? (isDark ? 0.25 : 0.2) : (isDark ? 0.8 : 0.6),
+      transition: 'opacity 0.3s ease'
     }}>
       <Canvas 
         camera={{ position: [0, 0, 6], fov: 45 }}
