@@ -155,12 +155,17 @@ export default function Navbar({ spaName }) {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
+      {/* Mobile menu container (Animated) */}
+      <div style={{
+        maxHeight: menuOpen ? '500px' : '0',
+        opacity: menuOpen ? 1 : 0,
+        overflow: 'hidden',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        background: 'var(--bg-primary)',
+        borderBottom: menuOpen ? '1px solid var(--border)' : '0px solid transparent'
+      }}>
         <div style={{
-          background: 'var(--bg-primary)',
-          borderBottom: '1px solid var(--border)',
-          padding: '1.25rem 1.5rem',
+          padding: menuOpen ? '1.25rem 1.5rem' : '0 1.5rem',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.5rem'
@@ -188,7 +193,7 @@ export default function Navbar({ spaName }) {
             );
           })}
         </div>
-      )}
+      </div>
 
       <style>{`
         @media (max-width: 960px) {
