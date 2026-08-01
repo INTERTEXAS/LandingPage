@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, Award, FileCheck2, Layout, Cpu, CheckCircle2, UserCheck } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function Mentors({ mentors }) {
   const mentorDetails = [
@@ -8,14 +8,11 @@ export default function Mentors({ mentors }) {
       role: "Ingeniería en Requisitos de Software",
       image: "/gerardo.png",
       objectPosition: "center 18%",
-      pillColor: "rgba(99, 102, 241, 0.2)",
-      borderColor: "rgba(99, 102, 241, 0.35)",
-      badgeText: "Dirección de Requisitos",
       summary: "Guía en el análisis de necesidades corporativas, especificación formal del software y validación de reglas de negocio para auditoría fiscal.",
       deliverables: [
-        { icon: <FileCheck2 size={15} color="var(--primary)" />, label: "Documentación SRS (IEEE 830)" },
-        { icon: <CheckCircle2 size={15} color="var(--primary)" />, label: "Modelado de Casos de Uso" },
-        { icon: <CheckCircle2 size={15} color="var(--primary)" />, label: "Criterios de Conciliación Fiscal" }
+        "Documentación SRS (IEEE 830)",
+        "Modelado de Casos de Uso",
+        "Criterios de Conciliación Fiscal"
       ]
     },
     {
@@ -23,212 +20,139 @@ export default function Mentors({ mentors }) {
       role: "Principios de Programación Lógica",
       image: "/aldo.png",
       objectPosition: "center 15%",
-      pillColor: "rgba(6, 182, 212, 0.2)",
-      borderColor: "rgba(6, 182, 212, 0.35)",
-      badgeText: "Dirección de Arquitectura & UX",
       summary: "Supervisión en la optimización algorítmica, implementación de la arquitectura React SPA y estándares de experiencia de usuario.",
       deliverables: [
-        { icon: <Cpu size={15} color="var(--accent)" />, label: "Algoritmo de Cruce de Datos" },
-        { icon: <Layout size={15} color="var(--accent)" />, label: "Diseño UI/UX Interactivo" },
-        { icon: <CheckCircle2 size={15} color="var(--accent)" />, label: "Arquitectura React & Vite SPA" }
+        "Algoritmo de Cruce de Datos",
+        "Diseño UI/UX Interactivo",
+        "Arquitectura React & Vite SPA"
       ]
     }
   ];
 
   return (
     <section id="mentores" className="section" style={{
-      position: 'relative',
-      background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(9, 13, 22, 0.85) 100%)',
-      overflow: 'hidden'
+      background: 'var(--bg-secondary)',
+      borderTop: '1px solid var(--border)'
     }}>
-      {/* Luz ambiental centrada */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '750px',
-        height: '400px',
-        background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.08) 50%, transparent 75%)',
-        pointerEvents: 'none',
-        filter: 'blur(70px)',
-        zIndex: 1
-      }} />
+      <div className="container">
 
-      <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
-        
-        {/* Badge Iluminado Didáctico */}
-        <div style={{ marginBottom: '1.2rem', display: 'flex', justifyContent: 'center' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.45rem 1.2rem',
-            borderRadius: 'var(--radius-full)',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(6, 182, 212, 0.18) 100%)',
-            border: '1px solid rgba(99, 102, 241, 0.35)',
-            boxShadow: '0 4px 15px rgba(99, 102, 241, 0.15)',
-            color: '#a5b4fc',
-            fontSize: '0.82rem',
-            fontWeight: 700,
-            letterSpacing: '0.05em',
-            textTransform: 'uppercase'
-          }}>
-            <GraduationCap size={16} color="var(--accent)" />
-            <span>DIRECCIÓN ACADÉMICA • SECCIÓN 04</span>
-          </div>
+        {/* Minimalist Header */}
+        <div style={{ textAlign: 'center', marginBottom: '6rem' }}>
+          <div className="section-label">Dirección Académica</div>
+          <h2 className="section-title">
+            Mentores & Asesores
+          </h2>
+          <p className="section-subtitle">
+            Docentes especialistas que supervisaron el desarrollo de CuadraPro y validaron la documentación técnica formal.
+          </p>
         </div>
 
-        {/* Título de Alto Impacto */}
-        <h2 className="section-title" style={{
-          fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-          marginBottom: '1rem',
-          background: 'linear-gradient(135deg, #ffffff 20%, #cbd5e1 60%, var(--primary) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
-        }}>
-          Mentores & Asesores Académicos
-        </h2>
-
-        {/* Subtítulo Descriptivo */}
-        <p className="section-subtitle" style={{
-          fontSize: '1.15rem',
-          color: 'var(--text-muted)',
-          maxWidth: '760px',
-          margin: '0 auto 3.5rem auto',
-          lineHeight: '1.6'
-        }}>
-          El desarrollo de CuadraPro contó con la supervisión directa y validación técnica de docentes especialistas en ingeniería de software y programación.
-        </p>
-
-        {/* Tarjetas Didácticas por Pilares de Especialidad */}
+        {/* Typographic Layout instead of cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '2.5rem',
-          maxWidth: '960px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          gap: '5rem',
+          maxWidth: '1000px',
           margin: '0 auto'
         }}>
           {mentorDetails.map((mentor, idx) => (
-            <div key={idx} className="glass-card" style={{
+            <div key={idx} style={{
               display: 'flex',
               flexDirection: 'column',
-              textAlign: 'left',
-              padding: '2.5rem 2rem',
-              position: 'relative',
-              background: 'rgba(18, 24, 38, 0.8)',
-              border: `1px solid ${mentor.borderColor}`
+              textAlign: 'center',
+              alignItems: 'center'
             }}>
-
-              {/* Insignia didáctica superior */}
-              <div style={{
-                position: 'absolute',
-                top: '1.2rem',
-                right: '1.2rem',
-                padding: '0.25rem 0.75rem',
-                borderRadius: 'var(--radius-full)',
-                background: mentor.pillColor,
-                border: `1px solid ${mentor.borderColor}`,
-                color: '#ffffff',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem'
-              }}>
-                <Award size={13} color="var(--accent)" />
-                <span>{mentor.badgeText}</span>
-              </div>
-
-              {/* Header de la tarjeta: Foto + Datos */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '1.5rem' }}>
+              
+              {/* Photo */}
+              <div style={{ marginBottom: '2.5rem' }}>
                 <div style={{
-                  width: '90px',
-                  height: '90px',
-                  borderRadius: '50%',
-                  padding: '3px',
-                  background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
-                  boxShadow: '0 8px 20px rgba(0,0,0,0.5)',
-                  flexShrink: 0
+                  width: '120px',
+                  height: '120px',
+                  borderRadius: '1rem', // Squircle shape instead of perfect circle
+                  overflow: 'hidden',
+                  background: 'var(--bg-elevated)',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.08)'
                 }}>
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    background: '#0f172a'
-                  }}>
-                    <img
-                      src={mentor.image}
-                      alt={mentor.name}
-                      style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        objectFit: 'cover',
-                        objectPosition: mentor.objectPosition || 'center top'
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 style={{ fontSize: '1.25rem', color: '#ffffff', fontWeight: 800, marginBottom: '0.3rem' }}>
-                    {mentor.name}
-                  </h3>
-                  <div style={{
-                    fontSize: '0.85rem',
-                    color: 'var(--accent)',
-                    fontWeight: 600,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.35rem'
-                  }}>
-                    <UserCheck size={14} />
-                    <span>{mentor.role}</span>
-                  </div>
+                  <img
+                    src={mentor.image}
+                    alt={mentor.name}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: mentor.objectPosition || 'center top',
+                      filter: 'grayscale(20%) contrast(1.1)' // Slight editorial styling to images
+                    }}
+                  />
                 </div>
               </div>
 
-              {/* Resumen didáctico */}
+              {/* Title & Role */}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h3 style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.8rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: 600,
+                  marginBottom: '0.25rem',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.1
+                }}>
+                  {mentor.name}
+                </h3>
+                <div style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '0.95rem',
+                  color: 'var(--text-secondary)',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
+                  {mentor.role}
+                </div>
+              </div>
+
+              {/* Summary */}
               <p style={{
-                fontSize: '0.9rem',
-                color: 'var(--text-muted)',
-                lineHeight: '1.6',
-                marginBottom: '1.5rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                paddingBottom: '1.25rem'
+                fontSize: '1.05rem',
+                color: 'var(--text-primary)',
+                lineHeight: 1.6,
+                marginBottom: '2.5rem'
               }}>
                 {mentor.summary}
               </p>
 
-              {/* Lista de Aportes / Entregables Supervisados */}
+              {/* Deliverables (Subdued minimalist list) */}
               <div>
                 <div style={{
-                  fontSize: '0.78rem',
-                  fontWeight: 700,
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
                   color: 'var(--text-dim)',
                   textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  marginBottom: '0.8rem'
+                  letterSpacing: '0.1em',
+                  marginBottom: '1rem'
                 }}>
-                  Pilares de Asesoría Técnica:
+                  Aportes supervisados
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '0.75rem', textAlign: 'left' }}>
                   {mentor.deliverables.map((del, dIdx) => (
                     <div key={dIdx} style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.6rem',
-                      padding: '0.5rem 0.8rem',
-                      borderRadius: 'var(--radius-md)',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.05)',
-                      fontSize: '0.85rem',
-                      color: '#ffffff'
+                      gap: '0.75rem',
+                      fontSize: '0.95rem',
+                      color: 'var(--text-secondary)'
                     }}>
-                      {del.icon}
-                      <span>{del.label}</span>
+                      <div style={{
+                        width: '4px',
+                        height: '4px',
+                        borderRadius: '50%',
+                        background: 'var(--text-primary)',
+                        flexShrink: 0
+                      }} />
+                      <span>{del}</span>
                     </div>
                   ))}
                 </div>

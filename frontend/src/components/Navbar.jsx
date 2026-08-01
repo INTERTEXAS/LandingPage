@@ -1,18 +1,43 @@
-import React, { useState } from 'react';
-import { Sparkles, Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { ThemeContext } from '../ThemeContext';
 
 export default function Navbar({ spaName }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const links = [
-    { label: "Mentores", href: "#mentores" },
-    { label: "Video de venta", href: "#venta" },
-    { label: "Tutorial", href: "#tutorial" },
-    { label: "Probar SPA", href: "#spa" },
-    { label: "Testimonio", href: "#testimonio" },
-    { label: "Documentación", href: "#documentacion" },
-    { label: "Contacto", href: "#contacto" }
+    { label: "Mentores", href: "#mentores", id: "mentores" },
+    { label: "Demo", href: "#venta", id: "venta" },
+    { label: "Tutorial", href: "#tutorial", id: "tutorial" },
+    { label: "SPA", href: "#spa", id: "spa" },
+    { label: "Reflexión", href: "#testimonio", id: "testimonio" },
+    { label: "Docs", href: "#documentacion", id: "documentacion" },
+    { label: "Contacto", href: "#contacto", id: "contacto" }
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const scrollPosition = window.scrollY + 200;
+      for (const link of links) {
+        const element = document.getElementById(link.id);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(link.id);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <header style={{
@@ -21,113 +46,154 @@ export default function Navbar({ spaName }) {
       left: 0,
       width: '100%',
       zIndex: 1000,
-      background: 'rgba(10, 13, 20, 0.85)',
-      backdropFilter: 'blur(16px)',
-      borderBottom: '1px solid var(--glass-border)'
+      background: scrolled ? 'var(--bg-primary)' : 'transparent',
+      borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
+      transition: 'all 0.3s ease'
     }}>
       <div className="container" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '75px'
+        height: '72px'
       }}>
-        {/* Logo / Nombre del Proyecto */}
+        {/* Logo */}
         <a href="#hero" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.75rem',
           textDecoration: 'none',
-          color: 'var(--text-main)',
-          fontSize: '1.35rem',
-          fontWeight: 800
+          color: 'var(--text-primary)'
         }}>
           <img
             src="/logo-lines.png"
-            alt="Logo MALZ.DEV"
+            alt="CuadraPro"
             style={{
-              height: '40px',
+              height: '32px',
               width: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.5))'
+              filter: theme === 'light' ? 'invert(1)' : 'none'
             }}
           />
-          <span>{spaName}</span>
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: '1.25rem',
+            fontWeight: 700,
+            letterSpacing: '-0.02em'
+          }}>{spaName}</span>
         </a>
 
-        {/* Enlaces de Navegación (Desktop) */}
+        {/* Desktop nav */}
         <nav style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '1.5rem'
+          gap: '0.25rem'
         }} className="nav-desktop">
-          {links.map((link, idx) => (
-            <a
-              key={idx}
-              href={link.href}
-              style={{
-                color: 'var(--text-muted)',
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                transition: 'color 0.2s'
-              }}
-              onMouseEnter={(e) => e.target.style.color = '#ffffff'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <a
+                key={link.id}
+                href={link.href}
+                style={{
+                  color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '0.9rem',
+                  fontWeight: isActive ? 600 : 500,
+                  padding: '0.4rem 0.8rem',
+                  borderRadius: 'var(--radius-sm)',
+                  transition: 'all 0.2s ease',
+                  background: isActive ? 'var(--accent-soft)' : 'transparent'
+                }}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+          
+          <label className="theme-toggle-label">
+            <input 
+              className="theme-toggle-input" 
+              type="checkbox" 
+              checked={theme === 'dark'} 
+              onChange={toggleTheme} 
+            />
+            <div className="theme-toggle-switch">
+              <Sun size={16} className="icon-sun" />
+              <Moon size={16} className="icon-moon" />
+            </div>
+          </label>
         </nav>
 
-        {/* Botón menú móvil */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="nav-mobile-toggle"
-          style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--text-main)',
-            cursor: 'pointer',
-            display: 'none'
-          }}
-          aria-label="Toggle Menu"
-        >
-          {menuOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        {/* Mobile toggle */}
+        <div style={{ display: 'none', alignItems: 'center', gap: '1rem' }} className="nav-mobile-toggle">
+          <label className="theme-toggle-label" style={{ transform: 'scale(0.8)', margin: 0 }}>
+            <input 
+              className="theme-toggle-input" 
+              type="checkbox" 
+              checked={theme === 'dark'} 
+              onChange={toggleTheme} 
+            />
+            <div className="theme-toggle-switch">
+              <Sun size={16} className="icon-sun" />
+              <Moon size={16} className="icon-moon" />
+            </div>
+          </label>
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-primary)',
+              cursor: 'pointer',
+            }}
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
-      {/* Menú Móvil */}
+      {/* Mobile menu */}
       {menuOpen && (
         <div style={{
-          background: 'var(--bg-main)',
-          borderBottom: '1px solid var(--glass-border)',
-          padding: '1.5rem',
+          background: 'var(--bg-primary)',
+          borderBottom: '1px solid var(--border)',
+          padding: '1.25rem 1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem'
+          gap: '0.5rem'
         }}>
-          {links.map((link, idx) => (
-            <a
-              key={idx}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                color: 'var(--text-main)',
-                textDecoration: 'none',
-                fontSize: '1rem',
-                fontWeight: 500
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <a
+                key={link.id}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1rem',
+                  fontWeight: isActive ? 600 : 500,
+                  padding: '0.6rem 0.75rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: isActive ? 'var(--accent-soft)' : 'transparent'
+                }}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </div>
       )}
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 960px) {
           .nav-desktop { display: none !important; }
-          .nav-mobile-toggle { display: block !important; }
+          .nav-mobile-toggle { display: flex !important; }
         }
       `}</style>
     </header>

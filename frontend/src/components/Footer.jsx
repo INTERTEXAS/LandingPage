@@ -3,10 +3,10 @@ import React from 'react';
 export default function Footer({ authorName }) {
   return (
     <footer style={{
-      background: '#040711',
-      borderTop: '1px solid var(--glass-border)',
-      padding: '3.5rem 0 2rem 0',
-      color: 'var(--text-muted)'
+      background: 'var(--bg-primary)',
+      borderTop: '1px solid var(--border)',
+      padding: '4rem 0 2rem 0',
+      color: 'var(--text-secondary)'
     }}>
       <div className="container">
         <div style={{
@@ -15,26 +15,28 @@ export default function Footer({ authorName }) {
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: '1.5rem',
-          paddingBottom: '2rem',
-          borderBottom: '1px solid var(--glass-border)'
+          paddingBottom: '2.5rem',
+          borderBottom: '1px solid var(--border)'
         }}>
-          {/* Brand Logo & Name */}
+          {/* Brand */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <img
               src="/logo-lines.png"
-              alt="Logo MALZ.DEV"
+              alt="CuadraPro"
               style={{
-                height: '34px',
+                height: '28px',
                 width: 'auto',
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 0 8px rgba(99, 102, 241, 0.4))'
+                filter: 'grayscale(1) contrast(1.5)',
+                opacity: 0.7
               }}
             />
             <span style={{
               fontFamily: 'var(--font-display)',
-              fontWeight: 800,
-              fontSize: '1.25rem',
-              color: '#ffffff'
+              fontWeight: 700,
+              fontSize: '1.15rem',
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.02em'
             }}>
               CuadraPro
             </span>
@@ -42,23 +44,42 @@ export default function Footer({ authorName }) {
 
           {/* Quick Links */}
           <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.9rem', flexWrap: 'wrap' }}>
-            <a href="#hero" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Inicio</a>
-            <a href="#mentores" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Mentores</a>
-            <a href="#venta" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Video de venta</a>
-            <a href="#tutorial" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Tutorial</a>
-            <a href="#spa" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Probar SPA</a>
-            <a href="#documentacion" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Documentación</a>
-            <a href="#contacto" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Contacto</a>
+            {[
+              { label: 'Inicio', href: '#hero' },
+              { label: 'Mentores', href: '#mentores' },
+              { label: 'Demo', href: '#venta' },
+              { label: 'Tutorial', href: '#tutorial' },
+              { label: 'SPA', href: '#spa' },
+              { label: 'Docs', href: '#documentacion' },
+              { label: 'Contacto', href: '#contacto' }
+            ].map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                style={{
+                  color: 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 500,
+                  transition: 'color 0.2s ease'
+                }}
+                onMouseEnter={e => e.target.style.color = 'var(--accent)'}
+                onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
 
         <div style={{
           textAlign: 'center',
-          paddingTop: '1.75rem',
-          fontSize: '0.88rem',
-          color: 'var(--text-dim)'
+          paddingTop: '2rem',
+          fontSize: '0.85rem',
+          color: 'var(--text-dim)',
+          fontFamily: 'var(--font-body)'
         }}>
-          © 2026 {authorName || 'Miguel Lagunes'} — Proyecto Final Integrador • CuadraPro Single Page Application
+          © 2026 {authorName || 'Miguel Lagunes'} — Proyecto Final Integrador • Conciliación Bancaria Inteligente
         </div>
       </div>
     </footer>

@@ -1,212 +1,203 @@
 import React from 'react';
-import { ExternalLink, Github, Rocket, Server, Code2, Sparkles, Terminal, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, Github, Terminal, ArrowRight } from 'lucide-react';
 
 export default function TestSPA({ config }) {
   return (
-    <section id="spa" className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* Luz ambiental centrada simétrica */}
+    <section id="spa" className="section" style={{ position: 'relative', overflow: 'hidden', background: 'var(--bg-primary)' }}>
+      {/* Background glow */}
       <div style={{
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: '800px',
+        width: '60vw',
         height: '450px',
-        background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.12) 50%, transparent 75%)',
+        background: 'radial-gradient(ellipse at center, var(--bg-elevated) 0%, transparent 70%)',
         pointerEvents: 'none',
-        filter: 'blur(70px)',
+        filter: 'blur(100px)',
         zIndex: 1
       }} />
 
       <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
         
-        {/* Badge Iluminado */}
-        <div style={{ marginBottom: '1.2rem', display: 'flex', justifyContent: 'center' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.45rem 1.2rem',
-            borderRadius: 'var(--radius-full)',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(6, 182, 212, 0.18) 100%)',
-            border: '1px solid rgba(99, 102, 241, 0.35)',
-            boxShadow: '0 4px 15px rgba(99, 102, 241, 0.15)',
-            color: '#a5b4fc',
-            fontSize: '0.82rem',
-            fontWeight: 700,
-            letterSpacing: '0.05em',
-            textTransform: 'uppercase'
-          }}>
-            <Terminal size={15} color="var(--accent)" />
-            <span>ACCESO DIRECTO • SECCIÓN 03</span>
+        {/* Header */}
+        <div style={{ marginBottom: '4rem' }}>
+          <div className="section-label">
+            <Terminal size={14} /> Acceso Directo
           </div>
+          <h2 className="section-title">
+            Prueba la Plataforma
+          </h2>
+          <p className="section-subtitle">
+            Interactúa con la SPA en vivo o examina el código fuente del proyecto.
+          </p>
         </div>
 
-        {/* Título de Alto Impacto */}
-        <h2 className="section-title" style={{
-          fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-          marginBottom: '1rem',
-          background: 'linear-gradient(135deg, #ffffff 20%, #cbd5e1 60%, var(--primary) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent'
-        }}>
-          Probar el SPA & Código Fuente
-        </h2>
-
-        <p className="section-subtitle" style={{
-          fontSize: '1.15rem',
-          color: 'var(--text-muted)',
-          maxWidth: '720px',
-          margin: '0 auto 3rem auto',
-          lineHeight: '1.6'
-        }}>
-          Interactúa con la Single Page Application desplegada en producción o examina la arquitectura del proyecto en GitHub.
-        </p>
-
-        {/* Gran Banner de Consola Unificado Simétrico */}
+        {/* Dual Window UI */}
         <div style={{
-          maxWidth: '960px',
-          margin: '0 auto',
-          borderRadius: 'var(--radius-lg)',
-          overflow: 'hidden',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(99, 102, 241, 0.2)',
-          background: 'rgba(15, 23, 42, 0.85)',
-          backdropFilter: 'blur(16px)'
-        }}>
-          
-          {/* Header de Consola de Aplicación */}
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '2rem',
+          maxWidth: '1100px',
+          margin: '0 auto'
+        }} className="spa-dual-grid">
+
+          {/* Left Side: Live App (Glassmorphism) */}
           <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: '1.25rem',
+            padding: '3rem 2.5rem',
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '0.8rem 1.5rem',
-            background: 'rgba(10, 15, 28, 0.9)',
-            borderBottom: '1px solid var(--glass-border)'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <div style={{ display: 'flex', gap: '0.4rem' }}>
-                <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ef4444' }} />
-                <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#f59e0b' }} />
-                <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#10b981' }} />
+            alignItems: 'flex-start',
+            textAlign: 'left',
+            position: 'relative',
+            overflow: 'hidden',
+            boxShadow: '0 4px 40px rgba(0,0,0,0.04)'
+          }} className="dual-card hover-lift">
+            
+            <div style={{ position: 'relative', zIndex: 2 }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.4rem 0.8rem',
+                background: 'var(--text-primary)',
+                color: 'var(--bg-primary)',
+                borderRadius: '99px',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                marginBottom: '1.5rem'
+              }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                Despliegue Vercel
               </div>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontWeight: 600, marginLeft: '0.5rem' }}>
-                Plenaria Cloud Platform v1.0.0
-              </span>
+
+              <h3 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '2rem',
+                fontWeight: 600,
+                letterSpacing: '-0.03em',
+                color: 'var(--text-primary)',
+                marginBottom: '1rem',
+                lineHeight: 1.1
+              }}>
+                Aplicación en Producción
+              </h3>
+              
+              <p style={{
+                fontSize: '1rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6,
+                marginBottom: '3rem'
+              }}>
+                Experimenta la interfaz de usuario real, flujos de autenticación y velocidad de la SPA desplegada en la nube.
+              </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.78rem', color: '#34d399', fontWeight: 600 }}>
-              <CheckCircle2 size={14} />
-              <span>Sistemas Operativos</span>
-            </div>
+            <a
+              href={config?.spaUrl || 'https://cuadra-pro.vercel.app/'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ width: '100%', justifyContent: 'space-between', padding: '1rem 1.5rem' }}
+            >
+              Abrir CuadraPro SPA <ArrowRight size={18} />
+            </a>
+
+            {/* Decorative background element */}
+            <div style={{
+              position: 'absolute',
+              right: '-10%',
+              bottom: '-20%',
+              width: '300px',
+              height: '300px',
+              background: 'radial-gradient(circle, var(--border) 0%, transparent 60%)',
+              opacity: 0.5,
+              zIndex: 1,
+              pointerEvents: 'none'
+            }} />
           </div>
 
-          {/* Cuerpo en 2 Columnas Totalmente Simétricas */}
+          {/* Right Side: Source Code (Terminal) */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1px 1fr',
-            alignItems: 'stretch',
-            padding: '2.5rem 1.5rem'
-          }} className="spa-console-grid">
-
-            {/* Lado Izquierdo: Aplicación en Vivo */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '1.5rem',
-              textAlign: 'center'
-            }}>
-              <div>
-                <div style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: 'var(--radius-md)',
-                  background: 'rgba(6, 182, 212, 0.15)',
-                  border: '1px solid rgba(6, 182, 212, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.25rem auto',
-                  color: 'var(--accent)',
-                  boxShadow: '0 8px 20px rgba(6, 182, 212, 0.2)'
-                }}>
-                  <Rocket size={30} />
-                </div>
-
-                <h3 style={{ fontSize: '1.35rem', color: '#ffffff', fontWeight: 700, marginBottom: '0.5rem' }}>
-                  Aplicación en Vivo
-                </h3>
-
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1.75rem', lineHeight: '1.5', maxWidth: '320px' }}>
-                  Prueba la experiencia SPA en producción desplegada directamente en la infraestructura de Vercel.
-                </p>
+            background: '#050505', // Very dark for code feel
+            border: '1px solid #27272A',
+            borderRadius: '1.25rem',
+            padding: '3rem 2.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            textAlign: 'left',
+            position: 'relative'
+          }} className="dual-card hover-lift">
+            
+            <div>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.4rem 0.8rem',
+                background: '#18181B',
+                color: '#A1A1AA',
+                borderRadius: '99px',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                fontFamily: 'monospace',
+                marginBottom: '1.5rem',
+                border: '1px solid #27272A'
+              }}>
+                <Github size={12} />
+                Repository
               </div>
 
-              <a
-                href={config.spaUrl || 'https://cuadra-pro.vercel.app/'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-                style={{ width: '100%', maxWidth: '280px', padding: '0.9rem 1.4rem' }}
-              >
-                Abrir App en Vercel <ExternalLink size={18} />
-              </a>
+              <h3 style={{
+                fontFamily: 'monospace',
+                fontSize: '1.75rem',
+                fontWeight: 500,
+                letterSpacing: '-0.03em',
+                color: '#FAFAFA',
+                marginBottom: '1rem',
+                lineHeight: 1.2
+              }}>
+                ~/cuadra-pro/src
+              </h3>
+              
+              <p style={{
+                fontSize: '0.95rem',
+                color: '#A1A1AA',
+                lineHeight: 1.6,
+                marginBottom: '3rem',
+                fontFamily: 'monospace'
+              }}>
+                <span style={{ color: '#F59E0B' }}>$</span> git clone https://github.com/INTERTEXAS/...<br/><br/>
+                Inspecciona la arquitectura de software, componentes React y configuración de Vite directamente en GitHub.
+              </p>
             </div>
 
-            {/* Separador Vertical Gradiente */}
-            <div style={{
-              background: 'linear-gradient(180deg, transparent 0%, var(--glass-border) 20%, var(--glass-border) 80%, transparent 100%)',
-              width: '100%'
-            }} className="console-divider" />
-
-            {/* Lado Derecho: Código Fuente */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '1.5rem',
-              textAlign: 'center'
-            }}>
-              <div>
-                <div style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: 'var(--radius-md)',
-                  background: 'rgba(99, 102, 241, 0.15)',
-                  border: '1px solid rgba(99, 102, 241, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.25rem auto',
-                  color: 'var(--primary)',
-                  boxShadow: '0 8px 20px rgba(99, 102, 241, 0.2)'
-                }}>
-                  <Github size={30} />
-                </div>
-
-                <h3 style={{ fontSize: '1.35rem', color: '#ffffff', fontWeight: 700, marginBottom: '0.5rem' }}>
-                  Código Fuente
-                </h3>
-
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1.75rem', lineHeight: '1.5', maxWidth: '320px' }}>
-                  Inspecciona la arquitectura de software, componentes modulares y repositorio oficial en GitHub.
-                </p>
-              </div>
-
-              <a
-                href={config.githubUrl || 'https://github.com/INTERTEXAS'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-                style={{ width: '100%', maxWidth: '280px', padding: '0.9rem 1.4rem' }}
-              >
-                Ver en GitHub <Github size={18} />
-              </a>
-            </div>
-
+            <a
+              href={config?.githubUrl || 'https://github.com/INTERTEXAS'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+              style={{
+                width: '100%',
+                justifyContent: 'space-between',
+                padding: '1rem 1.5rem',
+                background: '#FAFAFA',
+                color: '#050505',
+                border: 'none'
+              }}
+            >
+              Inspeccionar Código <ExternalLink size={18} />
+            </a>
           </div>
 
         </div>
@@ -214,13 +205,15 @@ export default function TestSPA({ config }) {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .spa-console-grid {
+        .hover-lift {
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+          transform: translateY(-4px);
+        }
+        @media (max-width: 800px) {
+          .spa-dual-grid {
             grid-template-columns: 1fr !important;
-            gap: 2rem;
-          }
-          .console-divider {
-            display: none !important;
           }
         }
       `}</style>

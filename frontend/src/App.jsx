@@ -1,5 +1,6 @@
 import React from 'react';
 import { siteConfig } from './data/content';
+import { ThemeProvider } from './ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Mentors from './components/Mentors';
@@ -13,7 +14,8 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="app-main">
+    <ThemeProvider>
+      <div className="app-main">
       {/* NAV (sticky, arriba) */}
       <Navbar spaName={siteConfig.spaName} />
 
@@ -45,6 +47,7 @@ export default function App() {
 
       {/* FOOTER */}
       <Footer authorName={siteConfig.authorName} />
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
