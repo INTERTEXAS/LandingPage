@@ -68,10 +68,10 @@ export default function Navbar({ spaName }) {
             src="/logo-lines.png"
             alt="CuadraPro"
             style={{
-              height: '32px',
+              height: '44px',
               width: 'auto',
               objectFit: 'contain',
-              filter: theme === 'light' ? 'invert(1)' : 'none'
+              filter: theme === 'light' ? 'brightness(0)' : 'brightness(0) invert(1)'
             }}
           />
           <span style={{

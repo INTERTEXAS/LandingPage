@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTheme } from '../ThemeContext';
 
 export default function Footer({ authorName }) {
+  const { theme } = useTheme();
   return (
     <footer style={{
       background: 'var(--bg-primary)',
@@ -24,11 +26,10 @@ export default function Footer({ authorName }) {
               src="/logo-lines.png"
               alt="CuadraPro"
               style={{
-                height: '28px',
+                height: '36px',
                 width: 'auto',
                 objectFit: 'contain',
-                filter: 'grayscale(1) contrast(1.5)',
-                opacity: 0.7
+                filter: theme === 'light' ? 'brightness(0)' : 'brightness(0) invert(1)'
               }}
             />
             <span style={{
