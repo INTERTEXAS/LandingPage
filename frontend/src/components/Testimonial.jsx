@@ -103,6 +103,9 @@ export default function Testimonial({ embedUrl, config }) {
                   src={embedUrl}
                   controls
                   controlsList="nodownload"
+                  preload="metadata"
+                  playsInline
+                  muted
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </>

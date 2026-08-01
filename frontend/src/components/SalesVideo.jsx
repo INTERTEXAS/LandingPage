@@ -82,6 +82,9 @@ export default function SalesVideo({ embedUrl, config }) {
                   src={embedUrl}
                   controls
                   controlsList="nodownload"
+                  preload="metadata"
+                  playsInline
+                  muted
                   style={{
                     width: '100%',
                     height: 'auto',

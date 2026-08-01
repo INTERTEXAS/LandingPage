@@ -6,7 +6,7 @@ import { ThemeContext } from '../ThemeContext';
 // -----------------------------------------------------
 // Componente de Objeto Minimalista (Micro-SaaS Style)
 // -----------------------------------------------------
-function GlassMonolith({ isDark }) {
+function GlassMonolith({ isDark, isMobile }) {
   const meshRef = useRef();
 
   // Animación muy sutil adicional a la flotación
@@ -33,8 +33,8 @@ function GlassMonolith({ isDark }) {
           emissiveIntensity={isDark ? 0.2 : 0.3}
           roughness={0.15}
           metalness={0.1}
-          transmission={isDark ? 0.9 : 0.55} // Menos transmisión en modo claro
-          thickness={1.5}
+          transmission={isMobile ? 0 : (isDark ? 0.9 : 0.55)} // Menos transmisión en modo claro, 0 en móvil
+          thickness={isMobile ? 0 : 1.5}
           ior={1.5}
           clearcoat={1}
           clearcoatRoughness={0.1}
@@ -50,6 +50,9 @@ function GlassMonolith({ isDark }) {
 export default function HeroScene() {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === 'dark';
+  
+  // Detección simple de móvil para apagar efectos pesados
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
     <div style={{ 
@@ -65,8 +68,8 @@ export default function HeroScene() {
     }}>
       <Canvas 
         camera={{ position: [0, 0, 6], fov: 45 }}
-        dpr={[1, 2]} // Soporte Retina moderado
-        gl={{ antialias: true, alpha: true }}
+        dpr={isMobile ? [1, 1] : [1, 2]} // Soporte Retina moderado en PC, 1 en móvil
+        gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }} // Sin antialias en móvil
       >
         {/* Iluminación dramática estilo producto */}
         <ambientLight intensity={isDark ? 0.2 : 0.15} />
@@ -86,17 +89,19 @@ export default function HeroScene() {
         />
 
         {/* Objeto central */}
-        <GlassMonolith isDark={isDark} />
+        <GlassMonolith isDark={isDark} isMobile={isMobile} />
 
-        {/* Sombra proyectada falsa en el "suelo" para dar peso visual */}
-        <ContactShadows 
-          position={[0, -2.5, 0]} 
-          opacity={isDark ? 0.4 : 0.25} 
-          scale={10} 
-          blur={2.5} 
-          far={4} 
-          color={isDark ? '#6366f1' : '#1e293b'}
-        />
+        {/* Sombra proyectada falsa en el "suelo" (Desactivada en móvil por rendimiento) */}
+        {!isMobile && (
+          <ContactShadows 
+            position={[0, -2.5, 0]} 
+            opacity={isDark ? 0.4 : 0.25} 
+            scale={10} 
+            blur={2.5} 
+            far={4} 
+            color={isDark ? '#6366f1' : '#1e293b'}
+          />
+        )}
 
         {/* Reflexiones del entorno para que el vidrio se vea realista */}
         <Environment preset="city" />

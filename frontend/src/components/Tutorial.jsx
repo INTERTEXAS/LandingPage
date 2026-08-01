@@ -181,6 +181,9 @@ export default function Tutorial({ embedUrl, config }) {
                   src={embedUrl}
                   controls
                   controlsList="nodownload"
+                  preload="metadata"
+                  playsInline
+                  muted
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>
