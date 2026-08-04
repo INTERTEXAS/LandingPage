@@ -4,9 +4,7 @@ import { motion } from 'framer-motion';
 
 const HeroScene = React.lazy(() => import('./HeroScene'));
 
-export default function Hero({ config, isLoaded }) {
-  const isBot = typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel/i.test(navigator.userAgent);
-
+export default function Hero({ config, isLoaded, isBot }) {
   const techStack = [
     "React SPA", "Three.js", "Vite", "JWT Auth", "SHA-256"
   ];

@@ -19,7 +19,8 @@ import Cursor from './components/Cursor';
 
 export default function App() {
   const isBot = typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel-screenshot/i.test(navigator.userAgent);
-  const [isLoaded, setIsLoaded] = useState(isBot);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const [isLoaded, setIsLoaded] = useState(isBot || isMobile);
 
   return (
     <ThemeProvider>
@@ -36,7 +37,7 @@ export default function App() {
 
           <main>
             {/* 1. HERO */}
-            <Hero config={siteConfig} isLoaded={isLoaded} />
+            <Hero config={siteConfig} isLoaded={isLoaded} isBot={isBot} />
 
             {/* 2. MENTORES (id: mentores) */}
             <Mentors mentors={siteConfig.mentors} />

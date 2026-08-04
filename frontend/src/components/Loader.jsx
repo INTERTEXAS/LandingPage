@@ -6,7 +6,9 @@ export default function Loader({ onComplete }) {
   const [startExit, setStartExit] = useState(false);
 
   useEffect(() => {
-    if (typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel-screenshot/i.test(navigator.userAgent)) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+    if (isMobile || (typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel-screenshot/i.test(navigator.userAgent))) {
       setCounter(100);
       setStartExit(true);
       onComplete();

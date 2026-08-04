@@ -2,6 +2,8 @@ import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export default function TiltCard({ children, className = "", style = {} }) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -13,6 +15,7 @@ export default function TiltCard({ children, className = "", style = {} }) {
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
 
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -31,6 +34,25 @@ export default function TiltCard({ children, className = "", style = {} }) {
     x.set(0);
     y.set(0);
   };
+
+  if (isMobile) {
+    return (
+      <div className={className} style={{ ...style, position: 'relative' }}>
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          background: 'var(--bg-elevated)',
+          border: '1px solid var(--border)',
+          borderRadius: 'inherit',
+          overflow: 'hidden',
+          zIndex: 1
+        }}>
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

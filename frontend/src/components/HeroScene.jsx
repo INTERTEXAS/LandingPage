@@ -12,24 +12,27 @@ function GlassMonolith({ isDark, isMobile }) {
   useFrame((state, delta) => {
     meshRef.current.rotation.x += delta * 0.1;
     meshRef.current.rotation.y += delta * 0.15;
-    meshRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.2;
+    meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+    meshRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.15;
   });
 
   return (
     <group ref={meshRef} position={isMobile ? [0, 0, 0] : [3, 0, -1]} scale={isMobile ? 1 : 1.8}>
       {/* Outer Glass TorusKnot */}
       <mesh>
-        <torusKnotGeometry args={[1, 0.3, 200, 32]} />
+        <torusKnotGeometry args={isMobile ? [1, 0.3, 64, 16] : [1, 0.3, 200, 32]} />
         <meshPhysicalMaterial
-          color={isDark ? '#0f172a' : '#64748b'} // Slate 500 para máximo contraste en modo claro
+          color={isDark ? '#0f172a' : '#64748b'}
           metalness={isDark ? 0.1 : 0.4}
           roughness={isDark ? 0.05 : 0.1}
-          transmission={isMobile ? 0 : (isDark ? 1 : 0.8)} // Un poco más opaco en claro para definir su silueta
-          thickness={1.5}
-          ior={1.5}
-          envMapIntensity={2}
-          clearcoat={1}
+          transmission={isMobile ? 0 : (isDark ? 1 : 0.8)}
+          thickness={isMobile ? 0 : 1.5}
+          ior={isMobile ? 1.0 : 1.5}
+          envMapIntensity={isMobile ? 0.5 : 2}
+          clearcoat={isMobile ? 0 : 1}
           clearcoatRoughness={0.1}
+          transparent={true}
+          opacity={1}
         />
       </mesh>
 

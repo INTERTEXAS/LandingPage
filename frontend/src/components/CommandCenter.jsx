@@ -63,7 +63,8 @@ export default function CommandCenter() {
               overflowX: 'auto',
               paddingBottom: '1rem',
               borderBottom: '1px solid var(--border)',
-              marginBottom: '2rem'
+              marginBottom: '2rem',
+              WebkitOverflowScrolling: 'touch'
             }}>
               {TABS.map((tab) => {
                 const isActive = activeTab === tab.id;
@@ -86,7 +87,9 @@ export default function CommandCenter() {
                       cursor: 'none', // For custom cursor
                       transition: 'color 0.3s ease',
                       outline: 'none',
-                      borderRadius: '0.5rem'
+                      borderRadius: '0.5rem',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0
                     }}
                   >
                     {isActive && (
@@ -153,7 +156,9 @@ export default function CommandCenter() {
                     padding: '1.5rem',
                     border: '1px solid #27272a',
                     boxShadow: 'inset 0 0 20px rgba(0,0,0,0.5)',
-                    position: 'relative'
+                    position: 'relative',
+                    maxWidth: '100%',
+                    minWidth: 0
                   }}>
                     {/* Mac window dots */}
                     <div style={{ display: 'flex', gap: '6px', marginBottom: '1rem' }}>
