@@ -92,7 +92,7 @@ export default function Loader({ onComplete }) {
               fontSize: 'clamp(5rem, 18vw, 15rem)', 
               fontFamily: 'var(--font-display)', 
               fontWeight: 700, 
-              lineHeight: 0.85, 
+              lineHeight: 0.95, 
               letterSpacing: '-0.05em' 
             }}
           >
