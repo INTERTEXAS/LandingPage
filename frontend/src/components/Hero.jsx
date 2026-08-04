@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 const HeroScene = React.lazy(() => import('./HeroScene'));
 
 export default function Hero({ config, isLoaded }) {
+  const isBot = typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel/i.test(navigator.userAgent);
+
   const techStack = [
     "React SPA", "Three.js", "Vite", "JWT Auth", "SHA-256"
   ];
@@ -19,10 +21,12 @@ export default function Hero({ config, isLoaded }) {
       display: 'flex',
       alignItems: 'center'
     }}>
-      {/* 3D Background Scene */}
-      <Suspense fallback={null}>
-        <HeroScene />
-      </Suspense>
+      {/* 3D Background Scene (Disabled for bots to prevent WebGL headless crashes) */}
+      {!isBot && (
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
+      )}
 
       <motion.div 
         className="container" 
