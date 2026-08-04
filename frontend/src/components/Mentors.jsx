@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Mentors({ mentors }) {
   const mentorDetails = [
@@ -56,23 +57,35 @@ export default function Mentors({ mentors }) {
           margin: '0 auto'
         }}>
           {mentorDetails.map((mentor, idx) => (
-            <div key={idx} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'center',
-              alignItems: 'center'
-            }}>
+            <motion.div 
+              key={idx} 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: idx * 0.2, ease: "easeOut" }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                textAlign: 'center',
+                alignItems: 'center'
+              }}
+            >
               
               {/* Photo */}
               <div style={{ marginBottom: '2.5rem' }}>
-                <div style={{
-                  width: '120px',
-                  height: '120px',
-                  borderRadius: '1rem', // Squircle shape instead of perfect circle
-                  overflow: 'hidden',
-                  background: 'var(--bg-elevated)',
-                  boxShadow: '0 8px 30px rgba(0,0,0,0.08)'
-                }}>
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{
+                    width: '120px',
+                    height: '120px',
+                    borderRadius: '1.5rem', // Squircle shape instead of perfect circle
+                    overflow: 'hidden',
+                    background: 'var(--bg-elevated)',
+                    boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
+                    cursor: 'none'
+                  }}
+                >
                   <img
                     src={mentor.image}
                     alt={mentor.name}
@@ -84,7 +97,7 @@ export default function Mentors({ mentors }) {
                       filter: 'grayscale(20%) contrast(1.1)' // Slight editorial styling to images
                     }}
                   />
-                </div>
+                </motion.div>
               </div>
 
               {/* Title & Role */}
@@ -158,7 +171,7 @@ export default function Mentors({ mentors }) {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
 

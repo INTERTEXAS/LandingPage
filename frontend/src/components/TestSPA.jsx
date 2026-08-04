@@ -211,7 +211,7 @@ export default function TestSPA({ config }) {
         .hover-lift:hover {
           transform: translateY(-4px);
         }
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
           .spa-dual-grid {
             grid-template-columns: 1fr !important;
           }

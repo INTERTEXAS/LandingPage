@@ -88,6 +88,15 @@ body {
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
+@media (min-width: 768px) {
+  body {
+    cursor: none;
+  }
+  a, button, input, select, textarea {
+    cursor: none;
+  }
+}
+
 ::selection {
   background: var(--accent-soft);
   color: var(--accent);
@@ -161,11 +170,17 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 2.5rem;
-  transition: all var(--transition-smooth);
+  transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
 
 .card:hover {
   border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme='dark'] .card:hover {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 /* ---- Buttons ---- */
@@ -188,10 +203,15 @@ body {
 .btn-primary {
   background: var(--cta);
   color: var(--bg-primary); 
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary:hover {
   background: var(--cta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
 }
 
 .btn-secondary {
@@ -201,7 +221,75 @@ body {
 }
 
 .btn-secondary:hover {
-  border-color: var(--text-primary);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  background: var(--accent-soft);
+}
+
+/* ---- Pro Max Badges & Metrics ---- */
+.section-label-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: #6366f1;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+:root[data-theme='dark'] .section-label-glow {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.35);
+  color: #818cf8;
+}
+
+.metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  max-width: 920px;
+  margin: 0 auto 4rem auto;
+  padding: 1.5rem 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  transition: all 0.35s var(--ease-out);
+}
+
+.metrics-bar:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.metric-item {
+  text-align: center;
+}
+
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-primary) 30%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
 /* ---- Video Responsive ---- */
@@ -465,3 +553,80 @@ body {
   opacity: 1;
   transform: translateY(-50%);
 }
+
+/* ---- GetLayers Cinematic Mesh Gradient ---- */
+.mesh-gradient-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+.mesh-gradient-bg::before,
+.mesh-gradient-bg::after {
+  content: '';
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  animation: mesh-float 20s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+:root[data-theme='dark'] .mesh-gradient-bg::before,
+:root[data-theme='dark'] .mesh-gradient-bg::after {
+  opacity: 0.08; /* Sutil en dark mode */
+}
+
+.mesh-gradient-bg::before {
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation-delay: -5s;
+}
+
+.mesh-gradient-bg::after {
+  background: radial-gradient(circle, var(--cta) 0%, transparent 70%);
+  bottom: -20%;
+  right: -10%;
+  animation-duration: 25s;
+}
+
+@keyframes mesh-float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(5%, 10%) scale(1.1);
+  }
+  66% {
+    transform: translate(-10%, 5%) scale(0.95);
+  }
+  100% {
+    transform: translate(10%, -5%) scale(1.05);
+  }
+}
+
+/* ---- GetLayers Noise Overlay ---- */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme='dark'] .noise-overlay {
+  opacity: 0.03;
+}
+

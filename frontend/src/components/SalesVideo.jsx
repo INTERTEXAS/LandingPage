@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ArrowRight, CheckCircle2, TrendingUp, Clock, DollarSign, Film } from 'lucide-react';
-
-function VideoFallback({ title }) {
-  return (
-    <div className="video-fallback">
-      <Film size={44} className="video-fallback-icon" />
-      <div className="video-fallback-text">{title || 'Demo interactiva en preparación'}</div>
-      <div className="video-fallback-sub">Pronto podrás ver el motor de CuadraPro en acción.</div>
-    </div>
-  );
-}
+import { motion, useScroll, useTransform } from 'framer-motion';
+import VideoFallback from './VideoFallback';
 
 export default function SalesVideo({ embedUrl, config }) {
   const [videoError, setVideoError] = useState(false);
@@ -29,9 +21,19 @@ export default function SalesVideo({ embedUrl, config }) {
 
   const isLocalVideo = embedUrl && embedUrl.endsWith('.mp4');
 
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "center center"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+
   return (
-    <section id="venta" className="section" style={{
-      background: 'var(--bg-primary)'
+    <section id="venta" className="section" ref={containerRef} style={{
+      background: 'var(--bg-primary)',
+      overflow: 'hidden'
     }}>
       <div className="container">
 
@@ -54,8 +56,8 @@ export default function SalesVideo({ embedUrl, config }) {
           margin: '0 auto'
         }} className="sales-split-grid">
 
-          {/* Left: Video */}
-          <div>
+          {/* Left: Video with Parallax Scale */}
+          <motion.div style={{ scale, opacity }}>
             {isLocalVideo ? (
               <div style={{
                 borderRadius: '1rem',
@@ -90,6 +92,7 @@ export default function SalesVideo({ embedUrl, config }) {
                     height: 'auto',
                     display: 'block'
                   }}
+                  onError={() => setVideoError(true)}
                 />
               </div>
             ) : videoError ? (
@@ -101,10 +104,11 @@ export default function SalesVideo({ embedUrl, config }) {
                   title="Video de Venta"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  onError={() => setVideoError(true)}
                 />
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Right: Info panel (Typographic Dashboard) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>

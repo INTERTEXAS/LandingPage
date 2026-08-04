@@ -1,64 +1,120 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ArrowRight, PlayCircle, Activity, Database, Layers } from 'lucide-react';
-import HeroScene from './HeroScene';
+import { motion } from 'framer-motion';
 
-export default function Hero({ config }) {
+const HeroScene = React.lazy(() => import('./HeroScene'));
+
+export default function Hero({ config, isLoaded }) {
   const techStack = [
     "React SPA", "Three.js", "Vite", "JWT Auth", "SHA-256"
   ];
 
   return (
     <section id="hero" className="section" style={{
-      paddingTop: '6rem',
+      paddingTop: '8rem',
       paddingBottom: '8rem',
-      textAlign: 'center',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center'
     }}>
       {/* 3D Background Scene */}
-      <HeroScene />
+      <Suspense fallback={null}>
+        <HeroScene />
+      </Suspense>
 
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-
-        {/* Eyebrow */}
-        <div className="section-label" style={{ marginBottom: '1.5rem' }}>
-          Conciliación Bancaria Inteligente
-        </div>
-
-        {/* H1 */}
-        <h1 style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(3rem, 7vw, 5.5rem)',
-          fontWeight: 700,
-          lineHeight: 1.05,
-          marginBottom: '1.5rem',
-          letterSpacing: '-0.03em',
-          color: 'var(--text-primary)'
+      <motion.div 
+        className="container" 
+        style={{ position: 'relative', zIndex: 2 }}
+        initial="hidden"
+        animate={isLoaded ? "visible" : "hidden"}
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: 0.15,
+              delayChildren: 0.2
+            }
+          }
+        }}
+      >
+        <div className="hero-content-wrapper" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '2rem',
+          alignItems: 'center'
         }}>
-          {config.spaName}
-        </h1>
+          
+          <div style={{
+            gridColumn: '1 / span 12',
+            maxWidth: '100%',
+          }} className="hero-text-column">
+            
+            {/* Eyebrow */}
+            <motion.div 
+              className="section-label-glow"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+              }}
+              style={{ marginBottom: '2rem', display: 'inline-flex' }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1' }} />
+              Conciliación Bancaria Inteligente
+            </motion.div>
 
-        {/* Tagline */}
-        <p style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(1.1rem, 2vw, 1.25rem)',
-          color: 'var(--text-secondary)',
-          maxWidth: '680px',
-          margin: '0 auto 2.5rem auto',
-          lineHeight: 1.6
-        }}>
-          {config.tagline}
-        </p>
+            {/* H1 */}
+            <motion.h1 
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+              }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3.5rem, 8vw, 6.5rem)',
+                fontWeight: 700,
+                lineHeight: 1.02,
+                marginBottom: '1.5rem',
+                letterSpacing: '-0.04em',
+                color: 'var(--text-primary)',
+                textWrap: 'balance'
+              }}
+            >
+              {config.spaName}
+            </motion.h1>
 
-        {/* CTAs */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '1rem',
-          flexWrap: 'wrap',
-          marginBottom: '5rem'
-        }}>
+            {/* Tagline */}
+            <motion.p 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+              }}
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                color: 'var(--text-secondary)',
+                maxWidth: '600px',
+                marginBottom: '3rem',
+                lineHeight: 1.6
+              }}
+            >
+              {config.tagline}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1.5rem',
+                flexWrap: 'wrap',
+                marginBottom: '5rem'
+              }}
+            >
           <a
             href={config.spaUrl}
             target="_blank"
@@ -72,23 +128,60 @@ export default function Hero({ config }) {
           <a
             href={config.tutorialAnchor}
             className="btn btn-secondary"
-            style={{ padding: '1rem 2.2rem', fontSize: '1rem', background: 'var(--bg-primary)' }}
+            style={{ padding: '1rem 2.2rem', fontSize: '1rem' }}
           >
             Reproducir tutorial <PlayCircle size={18} />
           </a>
+        </motion.div>
+
+        {/* Pro Max High-Impact Metrics Bar */}
+        <motion.div 
+          className="metrics-bar"
+          variants={{
+            hidden: { opacity: 0, y: 30, scale: 0.95 },
+            visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+          }}
+        >
+          <div className="metric-item">
+            <div className="metric-value">99.9%</div>
+            <div className="metric-label">Precisión en Conciliación</div>
+          </div>
+          <div className="metric-item">
+            <div className="metric-value">&lt; 1.2s</div>
+            <div className="metric-label">Tiempo de Procesamiento</div>
+          </div>
+          <div className="metric-item">
+            <div className="metric-value">100%</div>
+            <div className="metric-label">Trazabilidad SHA-256</div>
+          </div>
+          <div className="metric-item">
+            <div className="metric-value">24/7</div>
+            <div className="metric-label">Conexión API Bancaria</div>
+          </div>
+          </motion.div>
+          </div>
         </div>
 
-        {/* Dashboard preview */}
-        <div style={{
-          maxWidth: '920px',
-          margin: '0 auto',
-          borderRadius: 'var(--radius-lg)',
-          overflow: 'hidden',
-          border: '1px solid var(--border)',
-          background: 'var(--bg-card)',
-          boxShadow: '0 4px 40px rgba(0, 0, 0, 0.08)',
-          textAlign: 'left'
-        }}>
+        {/* Bottom Section: Dashboard Preview (Full Width) */}
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0, y: 40 },
+            visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
+          }}
+          style={{
+            width: '100%',
+            maxWidth: '1000px',
+            margin: '0 auto',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            border: '1px solid var(--border)',
+            background: 'var(--bg-card)',
+            boxShadow: '0 4px 40px rgba(0, 0, 0, 0.08)',
+            textAlign: 'left',
+            position: 'relative',
+            zIndex: 10
+          }}
+        >
           {/* Header */}
           <div style={{
             display: 'flex',
@@ -125,7 +218,7 @@ export default function Hero({ config }) {
           <div style={{ padding: '2rem' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', // Horizontal en full width
               gap: '1.25rem',
               marginBottom: '2rem'
             }}>
@@ -205,9 +298,24 @@ export default function Hero({ config }) {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
+
+      <style>{`
+        .hero-text-column {
+          grid-column: 1 / span 7 !important;
+        }
+        @media (max-width: 900px) {
+          .hero-text-column {
+            grid-column: 1 / span 12 !important;
+            text-align: left;
+          }
+          .metrics-bar {
+            margin-bottom: 2rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

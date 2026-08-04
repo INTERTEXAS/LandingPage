@@ -143,7 +143,7 @@ export default function Contact({ config }) {
             transform: translate(4px, -4px);
           }
 
-          @media (max-width: 600px) {
+          @media (max-width: 900px) {
             .contact-row {
               flex-direction: column;
               align-items: flex-start;

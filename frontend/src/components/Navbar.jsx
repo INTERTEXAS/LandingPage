@@ -12,9 +12,9 @@ export default function Navbar({ spaName }) {
     { label: "Mentores", href: "#mentores", id: "mentores" },
     { label: "Demo", href: "#venta", id: "venta" },
     { label: "Tutorial", href: "#tutorial", id: "tutorial" },
-    { label: "SPA", href: "#spa", id: "spa" },
     { label: "Reflexión", href: "#testimonio", id: "testimonio" },
     { label: "Docs", href: "#documentacion", id: "documentacion" },
+    { label: "FAQ", href: "#faq", id: "faq" },
     { label: "Contacto", href: "#contacto", id: "contacto" }
   ];
 
@@ -196,7 +196,7 @@ export default function Navbar({ spaName }) {
       </div>
 
       <style>{`
-        @media (max-width: 960px) {
+        @media (max-width: 900px) {
           .nav-desktop { display: none !important; }
           .nav-mobile-toggle { display: flex !important; }
         }

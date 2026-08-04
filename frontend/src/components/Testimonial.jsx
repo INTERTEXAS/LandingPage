@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { Target, Lightbulb, Sparkles, Trophy, Film } from 'lucide-react';
-
-function VideoFallback({ title }) {
-  return (
-    <div className="video-fallback" style={{ height: '100%', border: 'none', background: 'transparent' }}>
-      <Film size={44} className="video-fallback-icon" />
-      <div className="video-fallback-text">{title || 'Video testimonio'}</div>
-      <div className="video-fallback-sub">La reflexión del creador estará disponible pronto.</div>
-    </div>
-  );
-}
+import { motion } from 'framer-motion';
+import VideoFallback from './VideoFallback';
 
 export default function Testimonial({ embedUrl, config }) {
   const [videoError, setVideoError] = useState(false);
@@ -42,9 +34,13 @@ export default function Testimonial({ embedUrl, config }) {
 
   return (
     <section id="testimonio" className="section" style={{
-      background: 'var(--bg-primary)'
+      background: 'var(--bg-primary)',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      <div className="container">
+      <div className="mesh-gradient-bg"></div>
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4.5rem' }}>
@@ -66,23 +62,35 @@ export default function Testimonial({ embedUrl, config }) {
         }} className="bento-grid">
 
           {/* Card 1: Top Left */}
-          <div className="bento-item" style={{ gridColumn: 'span 4' }}>
+          <motion.div 
+            className="bento-item" 
+            style={{ gridColumn: 'span 4' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <div className="bento-icon">{cards[0].icon}</div>
             <div>
               <h3 className="bento-title">{cards[0].title}</h3>
               <p className="bento-desc">{cards[0].desc}</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Center Video (Spans 2 rows, 4 cols) */}
-          <div className="bento-item bento-video" style={{
+          <motion.div className="bento-item bento-video" style={{
             gridColumn: 'span 4',
             gridRow: 'span 2',
             padding: 0,
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column'
-          }}>
+          }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+          >
             {isLocalVideo ? (
               <>
                 <div style={{
@@ -107,6 +115,7 @@ export default function Testimonial({ embedUrl, config }) {
                   playsInline
                   muted
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  onError={() => setVideoError(true)}
                 />
               </>
             ) : videoError ? (
@@ -119,37 +128,59 @@ export default function Testimonial({ embedUrl, config }) {
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  onError={() => setVideoError(true)}
                 />
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Card 2: Top Right */}
-          <div className="bento-item" style={{ gridColumn: 'span 4' }}>
+          <motion.div 
+            className="bento-item" 
+            style={{ gridColumn: 'span 4' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
             <div className="bento-icon">{cards[1].icon}</div>
             <div>
               <h3 className="bento-title">{cards[1].title}</h3>
               <p className="bento-desc">{cards[1].desc}</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Bottom Left */}
-          <div className="bento-item" style={{ gridColumn: 'span 4' }}>
+          <motion.div 
+            className="bento-item" 
+            style={{ gridColumn: 'span 4' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          >
             <div className="bento-icon">{cards[2].icon}</div>
             <div>
               <h3 className="bento-title">{cards[2].title}</h3>
               <p className="bento-desc">{cards[2].desc}</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 4: Bottom Right */}
-          <div className="bento-item" style={{ gridColumn: 'span 4' }}>
+          <motion.div 
+            className="bento-item" 
+            style={{ gridColumn: 'span 4' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
             <div className="bento-icon">{cards[3].icon}</div>
             <div>
               <h3 className="bento-title">{cards[3].title}</h3>
               <p className="bento-desc">{cards[3].desc}</p>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

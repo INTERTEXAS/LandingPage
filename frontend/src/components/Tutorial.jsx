@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, UploadCloud, Cpu, Search, FileSpreadsheet, Film } from 'lucide-react';
-
-function VideoFallback({ title }) {
-  return (
-    <div className="video-fallback">
-      <Film size={44} className="video-fallback-icon" />
-      <div className="video-fallback-text">{title || 'Tutorial guiado'}</div>
-      <div className="video-fallback-sub">El video paso a paso estará disponible pronto.</div>
-    </div>
-  );
-}
+import VideoFallback from './VideoFallback';
 
 export default function Tutorial({ embedUrl, config }) {
   const [videoError, setVideoError] = useState(false);
@@ -185,6 +176,7 @@ export default function Tutorial({ embedUrl, config }) {
                   playsInline
                   muted
                   style={{ width: '100%', height: 'auto', display: 'block' }}
+                  onError={() => setVideoError(true)}
                 />
               </div>
             ) : videoError ? (
@@ -196,6 +188,7 @@ export default function Tutorial({ embedUrl, config }) {
                   title="Tutorial del SPA"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  onError={() => setVideoError(true)}
                 />
               </div>
             )}

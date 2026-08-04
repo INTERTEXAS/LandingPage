@@ -1,53 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { siteConfig } from './data/content';
 import { ThemeProvider } from './ThemeContext';
+
+// Importación de componentes principales
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Mentors from './components/Mentors';
 import SalesVideo from './components/SalesVideo';
 import Tutorial from './components/Tutorial';
-import TestSPA from './components/TestSPA';
 import Testimonial from './components/Testimonial';
 import Documentation from './components/Documentation';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Loader from './components/Loader';
+import SmoothScroll from './components/SmoothScroll';
+import Cursor from './components/Cursor';
 
 export default function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <ThemeProvider>
-      <div className="app-main">
-      {/* NAV (sticky, arriba) */}
-      <Navbar spaName={siteConfig.spaName} />
+      <SmoothScroll>
+        <Cursor />
+        <div className="app-main">
+          <div className="noise-overlay" />
+          <AnimatePresence>
+            {!isLoaded && <Loader key="loader" onComplete={() => setIsLoaded(true)} />}
+          </AnimatePresence>
 
-      <main>
-        {/* 1. HERO */}
-        <Hero config={siteConfig} />
+          {/* NAV (sticky, arriba) */}
+          <Navbar spaName={siteConfig.spaName} />
 
-        {/* 2. MENTORES (id: mentores) */}
-        <Mentors mentors={siteConfig.mentors} />
+          <main>
+            {/* 1. HERO */}
+            <Hero config={siteConfig} isLoaded={isLoaded} />
 
-        {/* 3. VIDEO DE VENTA (id: venta) — sección 01 */}
-        <SalesVideo embedUrl={siteConfig.salesVideoEmbed} />
+            {/* 2. MENTORES (id: mentores) */}
+            <Mentors mentors={siteConfig.mentors} />
 
-        {/* 4. TUTORIAL (id: tutorial) — sección 02 */}
-        <Tutorial embedUrl={siteConfig.tutorialVideoEmbed} />
+            {/* 3. VIDEO DE VENTA (id: venta) — sección 01 */}
+            <SalesVideo embedUrl={siteConfig.salesVideoEmbed} />
 
-        {/* 5. PROBAR EL SPA (id: spa) — sección 03 */}
-        <TestSPA config={siteConfig} />
+            {/* 4. TUTORIAL (id: tutorial) — sección 02 */}
+            <Tutorial embedUrl={siteConfig.tutorialVideoEmbed} />
 
-        {/* 6. TESTIMONIO (id: testimonio) — sección 04 */}
-        <Testimonial embedUrl={siteConfig.testimonialVideoEmbed} />
+            {/* 5. TESTIMONIO (id: testimonio) — sección 04 */}
+            <Testimonial embedUrl={siteConfig.testimonialVideoEmbed} />
 
-        {/* 7. DOCUMENTACIÓN TÉCNICA (id: documentacion) — sección 05 */}
-        <Documentation config={siteConfig} />
+            {/* 6. DOCUMENTACIÓN TÉCNICA (id: documentacion) — sección 05 */}
+            <Documentation config={siteConfig} />
 
-        {/* 8. CONTACTO (id: contacto) — sección 06 */}
-        <Contact config={siteConfig} />
-      </main>
+            {/* 7. CONTACTO (id: contacto) — sección 06 */}
+            <Contact config={siteConfig} />
+          </main>
 
-      {/* FOOTER */}
-      <Footer authorName={siteConfig.authorName} />
-      </div>
+          {/* FOOTER */}
+          <Footer authorName={siteConfig.authorName} />
+        </div>
+      </SmoothScroll>
     </ThemeProvider>
   );
 }
