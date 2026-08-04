@@ -18,7 +18,8 @@ import SmoothScroll from './components/SmoothScroll';
 import Cursor from './components/Cursor';
 
 export default function App() {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const isBot = typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel-screenshot/i.test(navigator.userAgent);
+  const [isLoaded, setIsLoaded] = useState(isBot);
 
   return (
     <ThemeProvider>

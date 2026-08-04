@@ -27,7 +27,7 @@ export default function Hero({ config, isLoaded }) {
       <motion.div 
         className="container" 
         style={{ position: 'relative', zIndex: 2 }}
-        initial="hidden"
+        initial={isLoaded ? "visible" : "hidden"}
         animate={isLoaded ? "visible" : "hidden"}
         variants={{
           visible: {
