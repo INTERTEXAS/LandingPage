@@ -3,28 +3,50 @@ import { motion } from 'framer-motion';
 
 export default function SpotlightCard({ children, className = "", style = {} }) {
   const divRef = useRef(null);
+  const rectRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
+
+  const handleMouseEnter = () => {
+    if (divRef.current) {
+      rectRef.current = divRef.current.getBoundingClientRect();
+    }
+    setOpacity(1);
+  };
 
   const handleMouseMove = (e) => {
     if (!divRef.current || isFocused) return;
-    const rect = divRef.current.getBoundingClientRect();
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    
+    if (!rectRef.current) {
+      rectRef.current = divRef.current.getBoundingClientRect();
+    }
+
+    const rect = rectRef.current;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    divRef.current.style.setProperty('--mouse-x', `${x}px`);
+    divRef.current.style.setProperty('--mouse-y', `${y}px`);
   };
 
   const handleFocus = () => {
     setIsFocused(true);
+    if (divRef.current) {
+      rectRef.current = divRef.current.getBoundingClientRect();
+    }
     setOpacity(1);
   };
 
   const handleBlur = () => {
     setIsFocused(false);
     setOpacity(0);
+    rectRef.current = null;
   };
 
-  const handleMouseEnter = () => setOpacity(1);
-  const handleMouseLeave = () => setOpacity(0);
+  const handleMouseLeave = () => {
+    setOpacity(0);
+    rectRef.current = null;
+  };
 
   return (
     <div
@@ -53,7 +75,7 @@ export default function SpotlightCard({ children, className = "", style = {} }) 
           position: 'absolute',
           pointerEvents: 'none',
           inset: '-1px',
-          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(255,255,255,0.08), transparent 40%)`,
+          background: `radial-gradient(400px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px), rgba(255,255,255,0.08), transparent 40%)`,
           zIndex: 0
         }}
       />

@@ -15,7 +15,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
 import SmoothScroll from './components/SmoothScroll';
-import Cursor from './components/Cursor';
 
 export default function App() {
   const isBot = typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel-screenshot/i.test(navigator.userAgent);
@@ -25,7 +24,6 @@ export default function App() {
   return (
     <ThemeProvider>
       <SmoothScroll>
-        <Cursor />
         <div className="app-main">
           <div className="noise-overlay" />
           <AnimatePresence>

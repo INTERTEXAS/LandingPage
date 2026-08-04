@@ -88,15 +88,6 @@ body {
   transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
-@media (min-width: 768px) {
-  body {
-    cursor: none;
-  }
-  a, button, input, select, textarea {
-    cursor: none;
-  }
-}
-
 ::selection {
   background: var(--accent-soft);
   color: var(--accent);
@@ -167,8 +158,8 @@ body {
 /* ---- Cards & Glassmorphism ---- */
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
@@ -180,12 +171,13 @@ body {
 
 .card {
   background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
   padding: 2.5rem;
   transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  will-change: transform;
 }
 
 :root[data-theme='light'] .card {
@@ -261,7 +253,8 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   transition: all 0.3s ease;
 }
 
@@ -385,8 +378,8 @@ body {
   gap: 0.5rem;
   padding: 0.4rem 1rem;
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--accent-border);
   border-radius: var(--radius-full);
   color: var(--accent);
@@ -422,8 +415,8 @@ body {
 .pro-node-card {
   padding: 0.55rem 0.95rem;
   background: rgba(15, 23, 42, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-md);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -592,10 +585,11 @@ body {
   width: 60vw;
   height: 60vw;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(60px);
   opacity: 0.15;
   animation: mesh-float 20s infinite alternate ease-in-out;
   pointer-events: none;
+  will-change: transform;
 }
 
 :root[data-theme='dark'] .mesh-gradient-bg::before,

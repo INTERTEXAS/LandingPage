@@ -20,7 +20,7 @@ function GlassMonolith({ isDark, isMobile }) {
     <group ref={meshRef} position={isMobile ? [0, 0, 0] : [3, 0, -1]} scale={isMobile ? 1 : 1.8}>
       {/* Outer Glass TorusKnot */}
       <mesh>
-        <torusKnotGeometry args={isMobile ? [1, 0.3, 64, 16] : [1, 0.3, 200, 32]} />
+        <torusKnotGeometry args={isMobile ? [1, 0.3, 64, 16] : [1, 0.3, 100, 16]} />
         <meshPhysicalMaterial
           color={isDark ? '#0f172a' : '#64748b'}
           metalness={isDark ? 0.1 : 0.4}
@@ -70,7 +70,7 @@ export default function HeroScene() {
     }}>
       <Canvas 
         camera={{ position: [0, 0, 6], fov: 45 }}
-        dpr={isMobile ? [1, 1] : [1, 2]} // Soporte Retina moderado en PC, 1 en móvil
+        dpr={isMobile ? [1, 1] : [1, 1.5]} // Soporte Retina moderado en PC, 1 en móvil
         gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }} // Sin antialias en móvil
       >
         {/* Iluminación dramática estilo producto */}

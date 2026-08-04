@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 export default function TiltCard({ children, className = "", style = {} }) {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const rectRef = useRef(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -14,9 +15,17 @@ export default function TiltCard({ children, className = "", style = {} }) {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
 
+  const handleMouseEnter = (e) => {
+    if (isMobile) return;
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+  };
+
   const handleMouseMove = (e) => {
     if (isMobile) return;
-    const rect = e.currentTarget.getBoundingClientRect();
+    if (!rectRef.current) {
+      rectRef.current = e.currentTarget.getBoundingClientRect();
+    }
+    const rect = rectRef.current;
     const width = rect.width;
     const height = rect.height;
     
@@ -33,6 +42,7 @@ export default function TiltCard({ children, className = "", style = {} }) {
   const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
+    rectRef.current = null;
   };
 
   if (isMobile) {
@@ -56,6 +66,7 @@ export default function TiltCard({ children, className = "", style = {} }) {
 
   return (
     <motion.div
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={className}
