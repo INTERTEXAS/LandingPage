@@ -306,9 +306,9 @@ export default function Documentation({ config }) {
 
               {/* PDF Viewer */}
               <div style={{ flex: 1, position: 'relative', background: '#333' }}>
-                {/* Fallback a iframe básico, muy confiable para PDF. Asegúrate de tener /srs.pdf en la carpeta public */}
+                {/* Fallback a iframe básico, muy confiable para PDF. Asegúrate de tener /SRS.pdf en la carpeta public */}
                 <iframe 
-                  src="/srs.pdf#toolbar=0&navpanes=0" 
+                  src="/SRS.pdf#toolbar=0&navpanes=0" 
                   title="Documento SRS"
                   width="100%" 
                   height="100%" 
