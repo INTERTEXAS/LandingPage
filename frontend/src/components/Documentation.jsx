@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
-import { FileText, Briefcase, ExternalLink, Plus, Minus } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { FileText, Briefcase, ExternalLink, Plus, Minus, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Documentation({ config }) {
   const [openFaq, setOpenFaq] = useState(null);
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
+
+  // Prevenir scroll de la pagina cuando el modal esta abierto
+  useEffect(() => {
+    if (isPdfOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isPdfOpen]);
 
   const faqs = [
     {
@@ -78,14 +89,12 @@ export default function Documentation({ config }) {
             </p>
 
             <div>
-              <a
-                href={config?.sharepointUrl || '#'}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setIsPdfOpen(true)}
                 className="btn btn-primary"
               >
                 Consultar <ExternalLink size={16} />
-              </a>
+              </button>
             </div>
 
           </div>
@@ -210,6 +219,106 @@ export default function Documentation({ config }) {
         </div>
 
       </div>
+
+      {/* Glassmorphism PDF Modal with Spring Physics */}
+      <AnimatePresence>
+        {isPdfOpen && (
+          <motion.div
+            initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+            animate={{ opacity: 1, backdropFilter: 'blur(20px)' }}
+            exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+            transition={{ duration: 0.4 }}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              zIndex: 99999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(0, 0, 0, 0.4)',
+              padding: 'clamp(1rem, 5vw, 3rem)'
+            }}
+          >
+            {/* Background overlay to click and close */}
+            <div 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', cursor: 'pointer' }}
+              onClick={() => setIsPdfOpen(false)}
+            />
+
+            <motion.div
+              initial={{ y: -150, scale: 0.9, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: 150, scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '1000px',
+                height: '85vh',
+                background: 'var(--bg-elevated)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: 'var(--radius-lg)',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
+              {/* Modal Header */}
+              <div style={{
+                padding: '1rem 1.5rem',
+                borderBottom: '1px solid var(--border)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                background: 'var(--bg-card)',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <FileText size={20} color="#6366f1" />
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, color: 'var(--text-primary)', fontSize: '1.05rem' }}>
+                    Especificación de Requisitos de Software (SRS)
+                  </span>
+                </div>
+                <button 
+                  onClick={() => setIsPdfOpen(false)}
+                  style={{
+                    background: 'var(--accent-soft)',
+                    border: '1px solid transparent',
+                    color: 'var(--text-primary)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0.4rem',
+                    borderRadius: '50%',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--border-strong)'; e.currentTarget.style.background = 'var(--border-hover)'; }}
+                  onMouseOut={(e) => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.background = 'var(--accent-soft)'; }}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* PDF Viewer */}
+              <div style={{ flex: 1, position: 'relative', background: '#333' }}>
+                {/* Fallback a iframe básico, muy confiable para PDF. Asegúrate de tener /srs.pdf en la carpeta public */}
+                <iframe 
+                  src="/srs.pdf#toolbar=0&navpanes=0" 
+                  title="Documento SRS"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 'none', display: 'block' }}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (max-width: 900px) {
