@@ -51,6 +51,8 @@ export default function TiltCard({ children, className = "", style = {} }) {
           height: '100%',
           transformStyle: "preserve-3d"
         }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         {/* Shadow inner layer for depth */}
         <div style={{

@@ -56,10 +56,8 @@ export default function Loader({ onComplete }) {
         pointerEvents: 'none'
       }}
     >
-      <div style={{
+      <div className="loader-bottom-bar" style={{
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
         width: '100%',
         position: 'relative',
         zIndex: 2
@@ -121,6 +119,20 @@ export default function Loader({ onComplete }) {
           fill="var(--bg-primary)"
         />
       </svg>
+      <style>{`
+        .loader-bottom-bar {
+          justify-content: space-between;
+          align-items: flex-end;
+          flex-direction: row;
+        }
+        @media (max-width: 600px) {
+          .loader-bottom-bar {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            gap: 0.5rem;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 }
