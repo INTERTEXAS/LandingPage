@@ -6,6 +6,13 @@ export default function Loader({ onComplete }) {
   const [startExit, setStartExit] = useState(false);
 
   useEffect(() => {
+    if (typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling|vercel-screenshot/i.test(navigator.userAgent)) {
+      setCounter(100);
+      setStartExit(true);
+      onComplete();
+      return;
+    }
+
     let count = 0;
     const interval = setInterval(() => {
       count += Math.floor(Math.random() * 4) + 1; // Sube más lento (1 a 4 por tick)
