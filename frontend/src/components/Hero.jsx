@@ -145,7 +145,7 @@ export default function Hero({ config, isLoaded, isBot }) {
           }}
         >
           <div className="metric-item">
-            <div className="metric-value">99.9%</div>
+            <div className="metric-value">100%</div>
             <div className="metric-label">Precisión en Conciliación</div>
           </div>
           <div className="metric-item">

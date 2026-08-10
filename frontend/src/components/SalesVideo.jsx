@@ -7,7 +7,7 @@ export default function SalesVideo({ embedUrl, config }) {
   const [videoError, setVideoError] = useState(false);
 
   const stats = [
-    { value: "99.8%", label: "Precisión de Conciliación", icon: <TrendingUp size={16} /> },
+    { value: "100%", label: "Precisión de Conciliación", icon: <TrendingUp size={16} /> },
     { value: "< 3m", label: "Cruce de 10k Transacciones", icon: <Clock size={16} /> },
     { value: "100%", label: "Detección de Fugas", icon: <DollarSign size={16} /> }
   ];
