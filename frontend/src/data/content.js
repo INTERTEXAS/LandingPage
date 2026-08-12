@@ -34,7 +34,7 @@ export const siteConfig = {
 
   // Videos (YouTube Embed URLs o archivos MP4 locales)
   salesVideoEmbed: "/totok.mp4", // Video local totok.mp4
-  tutorialVideoEmbed: "https://www.youtube.com/embed/fO5NHrY28Mc", // Reemplazar con tu video tutorial
+  tutorialVideoEmbed: "/demo.mp4", // Reemplazar con tu video tutorial
   testimonialVideoEmbed: "https://www.youtube.com/embed/fO5NHrY28Mc", // Reemplazar con tu video testimonio
 
   // Puntos del Testimonio

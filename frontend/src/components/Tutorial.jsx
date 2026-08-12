@@ -1,9 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, UploadCloud, Cpu, Search, FileSpreadsheet, Film } from 'lucide-react';
 import VideoFallback from './VideoFallback';
 
 export default function Tutorial({ embedUrl, config }) {
   const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          videoRef.current.play().catch(e => console.log("Auto-play prevented:", e));
+        } else {
+          videoRef.current.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(videoRef.current);
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const steps = [
     {
@@ -169,6 +190,7 @@ export default function Tutorial({ embedUrl, config }) {
                   <Film size={16} /> Demo interactiva
                 </div>
                 <video
+                  ref={videoRef}
                   src={embedUrl}
                   controls
                   controlsList="nodownload"
