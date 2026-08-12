@@ -92,32 +92,36 @@ export default function Testimonial({ embedUrl, config }) {
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           >
             {isLocalVideo ? (
-              <>
-                <div style={{
-                  padding: '1rem',
-                  borderBottom: '1px solid var(--border)',
-                  background: 'var(--bg-elevated)',
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '0.8rem',
-                  color: 'var(--text-primary)',
-                  fontWeight: 600,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem'
-                }}>
-                  <Film size={14} /> Testimonio — {config?.authorName || 'Miguel Lagunes'}
-                </div>
-                <video
-                  src={embedUrl}
-                  controls
-                  controlsList="nodownload"
-                  preload="metadata"
-                  playsInline
-                  muted
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  onError={() => setVideoError(true)}
-                />
-              </>
+              videoError ? (
+                <VideoFallback title="Video testimonio" />
+              ) : (
+                <>
+                  <div style={{
+                    padding: '1rem',
+                    borderBottom: '1px solid var(--border)',
+                    background: 'var(--bg-elevated)',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '0.8rem',
+                    color: 'var(--text-primary)',
+                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}>
+                    <Film size={14} /> Testimonio — {config?.authorName || 'Miguel Lagunes'}
+                  </div>
+                  <video
+                    src={embedUrl}
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    playsInline
+                    muted
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    onError={() => setVideoError(true)}
+                  />
+                </>
+              )
             ) : videoError ? (
               <VideoFallback title="Video testimonio" />
             ) : (
